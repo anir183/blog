@@ -1,2 +1,2 @@
-# blog 183
+# blog183
 a simple static hugo blog site

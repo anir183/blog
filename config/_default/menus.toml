@@ -1,0 +1,45 @@
+[[main]]
+  name       = 'Home'
+  identifier = 'home'
+  pageRef    = '/'
+  weight     = 1
+
+[[main]]
+  name       = 'Posts'
+  identifier = 'posts'
+  pageRef    = '/post'
+  weight     = 2
+
+[[main]]
+  name       = 'Tags'
+  identifier = 'tags'
+  pageRef    = '/tags'
+  weight     = 3
+
+[[main]]
+  name       = 'Categories'
+  identifier = 'categories'
+  pageRef    = '/categories'
+  weight     = 4
+
+[[main]]
+  name       = 'Portfolio'
+  identifier = 'projects'
+  url        = 'https://anir183.is-a.dev'
+  weight     = 5
+  [main.params]
+    target   = '_blank'
+
+[[footer]]
+  identifier = 'github'
+  url        = 'https://github.com/anir183'
+  weight     = 1
+  name       = 'GitHub'
+  pre        = 'github'
+
+[[footer]]
+  identifier = 'email'
+  url        = 'mailto:anirban@anir183.is-a.dev'
+  weight     = 3
+  name       = 'Email'
+  pre        = 'email'

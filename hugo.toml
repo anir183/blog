@@ -1,4 +1,168 @@
-baseURL = "https://anir183.is-a.dev/blog"
-locale = "en-us"
-title = "blog-183"
-theme = "hugo-brewm"
+baseURL = 'https://anir183.is-a.dev/blog'
+title = 'blog183'
+theme = 'hugo-brewm'
+
+enableGitInfo = true
+canonifyURLs = true
+enableRobotsTXT = true
+defaultContentLanguage = 'en'
+defaultContentLanguageInSubdir = false
+ignoreFiles = ['\.redacted', '\.old', '\.bak', '\.tmp', '\.swp', '\.DS_Store']
+enableMissingTranslationPlaceholders = true
+
+[frontmatter]
+  date = [':default']
+  expiryDate = ['expiryDate', 'unpublishdate', ':default']
+  lastmod = ['lastmod', ':default']
+
+[markup]
+  [markup.tableOfContents]
+    startLevel = 2
+    endLevel = 3
+    ordered = false
+  [markup.highlight]
+    codeFences = true
+    lineNoStart = 1
+    lineNos = false
+    lineNumbersInTable = true
+    noClasses = false
+    tabWidth = 4
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
+    [markup.goldmark.extensions]
+      [markup.goldmark.extensions.passthrough]
+        enable = true
+        [markup.goldmark.extensions.passthrough.delimiters]
+          block = [['\[', '\]'], ['$$', '$$'], ['\begin{equation}', '\end{equation}'], ['\begin{align}', '\end{align}']]
+          inline = [['\(', '\)'], ['$', '$']]
+
+[outputs]
+  home = ['html', 'rss', 'json']
+
+[sitemap]
+  changeFreq = 'monthly'
+
+[services.rss]
+  limit = -1
+
+[taxonomies]
+  category = 'categories'
+  tag = 'tags'
+  series = 'series'
+  stage = 'stage'
+  author = 'author'
+
+[params]
+  title = 'blog183'
+  description = 'A fine-brewed corner of the web — code, design, and other curiosities by anir183'
+  copyright = 'Copyleft 2026 &copy; anir183'
+  HideHugoCredit = false
+  extMeta = true
+  coffeeStat = true
+  AllowAIRobots = false
+  ZenMode = false
+  DisableFootBar = true
+  unifiedFooter = true
+
+  [params.analytics]
+    append = 'body'
+
+  [params.author]
+    name = 'anir183'
+    email = 'anirban@anir183.is-a.dev'
+
+  [params.comments]
+    disabled = true
+    # platform = 'fediverse'
+
+  # [params.fediverse]
+  #   instance = 'example.com'
+  #   username = 'username'
+
+  # [params.giscus]
+  #   repo = 'anir183/blog183'
+  #   repoID = ''
+  #   category = 'Comments'
+  #   categoryID = ''
+  #   mapping = 'og:title'
+  #   reactionsEnabled = '1'
+  #   emitMetadata = '0'
+  #   inputPosition = 'bottom'
+  #   theme = 'dark'
+  #   loading = 'lazy'
+
+  [params.favicon]
+    svg = '/assets/branding/logo_w_bg.svg'
+
+  [params.feed]
+    flowlines = true
+    flowlinesLimit = 21
+
+  [params.home]
+    disableSlide = false
+    disableListing = false
+    featuredListing = ['categories', 'series']
+
+  [params.logo]
+    logoType = true
+
+  [params.posts]
+    justifying = false
+    noIndent = true
+    sfdefault = true
+    colophon = true
+    disableHistory = false
+    related = true
+    share = false
+
+  [params.RSS]
+    limit = 15
+    content = 15
+
+  [params.style]
+    [params.style.light]
+      ac = '#aa6704'
+      bg = '#cbcbcb'
+      fg = '#383a42'
+      mid = '#6f7175'
+      [params.style.light.less]
+        ac = '#8b5803'
+        bg = '#e0d6c9'
+        fg = '#4a4d56'
+        mid = '#8a8d92'
+      [params.style.light.more]
+        ac = '#d48205'
+        bg = '#ffffff'
+        fg = '#1a1a1a'
+        mid = '#555555'
+    [params.style.dark]
+      ac = '#eda792'
+      bg = '#131518'
+      fg = '#abb2bf'
+      mid = '#5c6370'
+      [params.style.dark.less]
+        ac = '#d4897a'
+        bg = '#1a1d24'
+        fg = '#9ca3b0'
+        mid = '#4a505c'
+      [params.style.dark.more]
+        ac = '#f4c4b5'
+        bg = '#000000'
+        fg = '#e8eaed'
+        mid = '#808080'
+
+  [params.search]
+    enable = true
+    pagefind = true
+
+  [params.socialCard]
+    enable = true
+    images = 'https://anir183.is-a.dev/assets/branding/banner.jpg'
+    twitter = true
+    twitterCreator = '@anir183'
+    twitterSite = '@anir183'
+    opengraph = true
+
+  [params.typeface]
+    webSafe = true
