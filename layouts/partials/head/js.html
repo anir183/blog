@@ -1,0 +1,269 @@
+{{ "<!-- js.html (overridden: auto-save a11y) -->" | safeHTML }}
+{{- $js_files := slice
+    (resources.Get "js/default.js")
+    (resources.Get "js/accessibility.js")
+    (resources.Get "js/bionread.js")
+}}
+
+{{- if not (or site.Params.BearMode site.Params.ZenMode ) }}
+    {{- $js_files = $js_files | append (resources.Get "js/extras.js") }}
+    {{- if site.Params.posts.colophon }}
+        {{- $js_files = $js_files | append (resources.Get "js/qrcode.js") }}
+    {{- end }}
+{{- end }}
+
+{{- $hugo_brewm := resources.Concat "hugo-brewm.js" $js_files }}
+{{- with $hugo_brewm }}
+    {{- with resources.ExecuteAsTemplate "hugo-brewm.js" $ . | minify }}
+        {{- $js := . }}
+        {{- if eq hugo.Environment "development" }}
+            <script src="{{ $js.Permalink }}" defer onload="window.__jsBundleLoaded=true"></script>
+        {{- else }}
+            {{- with . | fingerprint "sha256" }}
+                <script src="{{ $js.Permalink }}"
+                    integrity="{{ .Data.Integrity }}" crossorigin="anonymous"
+                    defer onload="window.__jsBundleLoaded=true"></script>
+            {{- end }}
+        {{- end }}
+    {{- end }}
+{{- end }}
+
+<script>
+// Prevent flash — match html bg + --bg var to theme bg (including contrast)
+(function(){
+ var s=localStorage.getItem('scheme');
+ var c=localStorage.getItem('contrast')||
+  (window.matchMedia('(prefers-contrast:more)').matches?'more':
+   window.matchMedia('(prefers-contrast:less)').matches?'less':'default');
+ if(!s&&window.matchMedia('(prefers-color-scheme:dark)').matches)s='dark';
+ localStorage.removeItem('colorPalette');
+ var bg;
+ if(s==='dark'){
+  bg=c==='less'?'{{ or site.Params.style.dark.less.bg site.Params.style.dark.bg "#111" }}':
+     c==='more'?'{{ or site.Params.style.dark.more.bg site.Params.style.dark.bg "#111" }}':
+     '{{ or site.Params.style.dark.bg "#111" }}';
+  document.documentElement.classList.add('dark-mode');
+ } else {
+  bg=c==='less'?'{{ or site.Params.style.light.less.bg site.Params.style.light.bg "#f9f9f9" }}':
+     c==='more'?'{{ or site.Params.style.light.more.bg site.Params.style.light.bg "#f9f9f9" }}':
+     '{{ or site.Params.style.light.bg "#f9f9f9" }}';
+  document.documentElement.classList.remove('dark-mode');
+ }
+  document.documentElement.style.backgroundColor=bg;
+  document.head.insertAdjacentHTML('beforeend','<style id="flash-bg">body{--bg:'+bg+'!important}</style>');
+  var lo='.navbar-logo .logo-light,.mobile-logo .logo-light',
+      lo_d='.navbar-logo .logo-dark,.mobile-logo .logo-dark';
+  if(s==='dark'){
+   document.head.insertAdjacentHTML('beforeend','<style id="flash-logo">'+lo+'{opacity:1!important}'+lo_d+'{opacity:0!important}</style>');
+  } else {
+   document.head.insertAdjacentHTML('beforeend','<style id="flash-logo">'+lo+'{opacity:0!important}'+lo_d+'{opacity:1!important}</style>');
+  }
+})();
+
+// Patch useOpenDyslexic to handle --ff-label and fix invalid letter-spacing
+(function(){
+ var check=setInterval(function(){
+  if(typeof useOpenDyslexic!='function')return;
+  clearInterval(check);
+  var orig=useOpenDyslexic;
+  useOpenDyslexic=function(){
+   var cb=document.getElementById('OpenDyslexic');
+   var on=cb&&cb.checked;
+   document.documentElement.classList.toggle('od-active',on);
+   document.documentElement.style.setProperty('--ff-label',on?'OpenDyslexic':'');
+   if(on&&!window.__odFontsInjected){
+    window.__odFontsInjected=true;
+    var st=document.createElement('style');
+    st.textContent='@font-face{font-family:"OpenDyslexic";font-style:normal;font-weight:400;font-display:swap;src:local("OpenDyslexic"),url(https://raw.githubusercontent.com/antijingoist/OpenDyslexic/master/compiled/OpenDyslexic-Regular.woff2) format("woff2");size-adjust:83%;ascent-override:106%;descent-override:36%}@font-face{font-family:"OpenDyslexic";font-style:italic;font-weight:400;font-display:swap;src:local("OpenDyslexic Italic"),url(https://raw.githubusercontent.com/antijingoist/OpenDyslexic/master/compiled/OpenDyslexic-Italic.woff2) format("woff2");size-adjust:83%;ascent-override:106%;descent-override:36%}@font-face{font-family:"OpenDyslexic";font-style:normal;font-weight:700;font-display:swap;src:local("OpenDyslexic Bold"),url(https://raw.githubusercontent.com/antijingoist/OpenDyslexic/master/compiled/OpenDyslexic-Bold.woff2) format("woff2");size-adjust:83%;ascent-override:106%;descent-override:36%}@font-face{font-family:"OpenDyslexic";font-style:italic;font-weight:700;font-display:swap;src:local("OpenDyslexicMono"),url(https://raw.githubusercontent.com/antijingoist/OpenDyslexic/master/compiled/OpenDyslexic-Bold-Italic.woff2) format("woff2");size-adjust:83%;ascent-override:106%;descent-override:36%}@font-face{font-family:"OpenDyslexicMono";font-style:normal;font-weight:700;font-display:swap;src:local("OpenDyslexicMono"),url(https://raw.githubusercontent.com/foxihd/hugo-brewm/main/static/css/fonts/OpenDyslexicMono-Regular.woff2) format("woff2");size-adjust:83%;ascent-override:106%;descent-override:36%}:root{--od:"OpenDyslexic"}';
+    document.head.appendChild(st);
+   }
+   orig();
+   document.documentElement.style.setProperty('letter-spacing',on?'-0.09em':'');
+  };
+  var cb=document.getElementById('OpenDyslexic');
+  if(cb&&cb.checked)useOpenDyslexic();
+ },5);
+})();
+
+  document.addEventListener('DOMContentLoaded',function(){
+  // Override resetA11y — clear prefs, follow OS, apply immediately
+  window.resetA11y=function(){
+   localStorage.clear();
+   matchMediaColor();
+   OpenDyslexic.checked=false;
+   useSR.checked=false;
+   useOpenDyslexic();
+   useSreenReader();
+   fontSize.value='';
+   baselineStretch.value='';
+   setFontSize();
+   setStretch();
+   setColor();saveA11y();
+   setTimeout(function(){window.location.reload()},100);
+  };
+  // Remove colorblindness palette
+ var cp=document.getElementById('setColorPalette');
+ if(cp)cp.remove();localStorage.removeItem('colorPalette');
+ // Remove the flash-prevention style so body inline style (from setColor) works
+ var fb=document.getElementById('flash-bg');
+ if(fb)fb.remove();
+ // Sync html bg to body --bg (covers setColor already called from init)
+ var bg=document.body.style.getPropertyValue('--bg');
+ if(bg)document.documentElement.style.backgroundColor=bg;
+  // Sync dark-mode class for dual-theme logos
+   function syncDarkMode(){
+    var ls=document.getElementById('lightSwitch');
+    var isDark=ls?ls.checked:localStorage.getItem('scheme')==='dark'||(!localStorage.getItem('scheme')&&window.matchMedia('(prefers-color-scheme:dark)').matches);
+    document.documentElement.classList.toggle('dark-mode',isDark);
+    document.querySelectorAll('.navbar-logo img,.mobile-logo img').forEach(function(el){el.style.opacity=''});
+   }
+  // Wrap setColor — keep html bg in sync, clear inline logo styles so class-based CSS works
+  var _setColor=window.setColor;
+  window.setColor=function(){
+   _setColor();
+   var b=document.body.style.getPropertyValue('--bg');
+   if(b)document.documentElement.style.backgroundColor=b;
+   var ls=document.getElementById('lightSwitch');
+   if(ls)document.documentElement.classList.toggle('dark-mode',ls.checked);
+   document.querySelectorAll('.navbar-logo img,.mobile-logo img').forEach(function(el){el.style.opacity=''});
+  };
+ if(!localStorage.getItem('scheme')&&!localStorage.getItem('contrast')&&typeof setColor=='function'){
+  setColor();saveA11y();
+ }
+ var ls=document.getElementById('lightSwitch');
+ var ct=document.querySelectorAll('#setContrast input[type="radio"]');
+ if(ls)ls.addEventListener('change',saveA11y);
+ ct.forEach(function(el){el.addEventListener('change',saveA11y);});
+  ['fontSize','baselineStretch','OpenDyslexic','useSR','colorPalette'].forEach(function(id){
+   var el=document.getElementById(id);
+   if(el)el.addEventListener('change',saveA11y);
+  });
+  // == navbar event handlers ==========================================
+  syncDarkMode();
+  var fl=document.getElementById('flash-logo');
+  if(fl)fl.remove();
+  var header=document.getElementById('header');
+  var searchBtn=document.querySelector('.navbar-search-btn');
+  var searchDrawer=document.querySelector('.navbar-search-drawer');
+  var searchClose=document.querySelector('.navbar-search-close');
+  var hamburger=document.querySelector('.hamburger');
+  var mobileOverlay=document.querySelector('.mobile-overlay');
+  var mobileClose=document.querySelector('.mobile-close');
+  // Scroll state
+  function onScroll(e){
+   var sy=window.scrollY||document.documentElement.scrollTop||document.body.scrollTop;
+   if(e&&e.target&&e.target.scrollTop!=null)sy=e.target.scrollTop;
+   if(header)header.classList.toggle('scrolled',sy>10);
+  }
+  window.addEventListener('scroll',onScroll,{passive:true});
+  var mainHome=document.getElementById('home');
+  if(mainHome)mainHome.addEventListener('scroll',onScroll,{passive:true});
+  onScroll();
+  // Search toggle — lazy-load Pagefind
+  function openSearch(){
+   if(!searchDrawer)return;
+   function showAndFocus(){
+    searchDrawer.removeAttribute('hidden');
+    setTimeout(function(){
+     var inp=document.querySelector('.pagefind-ui__search-input');
+     if(inp)inp.focus();
+    },100);
+   }
+   if(!window.__pagefindLoaded){
+    window.__pagefindLoaded=true;
+    var s=document.createElement('script');
+    s.src='{{ "/pagefind/pagefind-ui.js" | absURL }}';
+    s.onload=function(){
+     new PagefindUI({element:'#search',showImages:false,translations:{placeholder:'Query'}});
+     var inp=document.querySelector('.pagefind-ui__search-input');
+     if(inp){inp.setAttribute('aria-label','Query');inp.setAttribute('name','Query');}
+     var pf=document.querySelector('.pagefind-ui');
+     if(pf&&!pf.querySelector('.navbar-search-controls')){
+      var c=document.createElement('div');
+      c.className='navbar-search-controls';
+      c.innerHTML='<span class="navbar-search-title">{{ i18n "search" }}</span><button class="navbar-search-close" aria-label="{{ i18n "close" }}">✕</button>';
+      c.querySelector('.navbar-search-close').addEventListener('click',function(){
+       var d=document.querySelector('.navbar-search-drawer');
+       if(d)d.setAttribute('hidden','');
+       var b=document.querySelector('.navbar-search-btn');
+       if(b)b.focus();
+      });
+      pf.prepend(c);
+     }
+     showAndFocus();
+    };
+    document.head.appendChild(s);
+   } else {
+    showAndFocus();
+   }
+  }
+  function closeSearch(){
+   if(!searchDrawer)return;
+   searchDrawer.setAttribute('hidden','');
+   if(searchBtn)searchBtn.focus();
+  }
+  if(searchBtn)searchBtn.addEventListener('click',function(e){
+   e.preventDefault();
+   if(searchDrawer&&!searchDrawer.hasAttribute('hidden')){closeSearch();return;}
+   openSearch();
+  });
+  if(searchClose)searchClose.addEventListener('click',closeSearch);
+  // Mobile menu toggle
+  function openMobile(){
+   if(!mobileOverlay)return;
+   mobileOverlay.removeAttribute('hidden');
+   hamburger&&hamburger.setAttribute('aria-expanded','true');
+   hamburger&&hamburger.classList.add('open');
+   document.body.style.overflow='hidden';
+  }
+  function closeMobile(){
+   if(!mobileOverlay)return;
+   mobileOverlay.setAttribute('hidden','');
+   hamburger&&hamburger.setAttribute('aria-expanded','false');
+   hamburger&&hamburger.classList.remove('open');
+   document.body.style.overflow='';
+  }
+  if(hamburger)hamburger.addEventListener('click',function(e){
+   e.preventDefault();
+   if(mobileOverlay&&!mobileOverlay.hasAttribute('hidden')){closeMobile();return;}
+   openMobile();
+  });
+  if(mobileClose)mobileClose.addEventListener('click',closeMobile);
+  if(mobileOverlay)mobileOverlay.addEventListener('click',function(e){
+   if(e.target===mobileOverlay)closeMobile();
+  });
+  // Escape key closes search + mobile
+  document.addEventListener('keydown',function(e){
+   if(e.key==='Escape'){
+    if(searchDrawer&&!searchDrawer.hasAttribute('hidden'))closeSearch();
+    if(mobileOverlay&&!mobileOverlay.hasAttribute('hidden'))closeMobile();
+   }
+  });
+  // == page transition fade-out ==========================================
+  var transitionOverlay=document.getElementById('page-transition');
+  if(transitionOverlay){
+   var pendingNav=null;
+   function startTransition(a){
+    if(pendingNav)return;
+    pendingNav=a.href;
+    transitionOverlay.classList.add('active');
+    var nav=function(){
+     transitionOverlay.removeEventListener('transitionend',nav);
+     requestAnimationFrame(function(){window.location.href=pendingNav;});
+    };
+    transitionOverlay.addEventListener('transitionend',nav);
+    setTimeout(nav,600);
+   }
+   document.addEventListener('click',function(e){
+    var a=e.target.closest('a');
+    if(!a||a.target==='_blank'||a.hasAttribute('download'))return;
+    var href=a.getAttribute('href');
+    if(!href||href.startsWith('#')||href.startsWith('javascript:')||href.startsWith('mailto:')||href.startsWith('tel:'))return;
+    if(a.hostname&&a.hostname!==window.location.hostname&&a.hostname!=='anir183.is-a.dev')return;
+    if(e.metaKey||e.ctrlKey||e.shiftKey)return;
+    e.preventDefault();
+    startTransition(a);
+   });
+  }
+ });
+</script>

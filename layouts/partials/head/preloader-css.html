@@ -1,0 +1,29 @@
+{{ "<!-- preloader-css.html -->" | safeHTML }}
+<style>
+@keyframes preloaderFadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+#preloader {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg);
+    transition: opacity 0.5s linear;
+    pointer-events: auto;
+}
+#preloader.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+.preloader-text {
+    font-family: 'Unbounded', sans-serif;
+    font-size: 1.25rem;
+    color: var(--fg);
+    animation: preloaderFadeIn 0.5s ease-out 0.15s both;
+}
+</style>

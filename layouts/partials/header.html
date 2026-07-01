@@ -1,0 +1,63 @@
+{{ "<!-- header.html (overridden: fixed navbar) -->" | safeHTML }}
+<header id="header" class="pagewidth">
+    <div id="background-header" class="background" aria-hidden="true"></div>
+    <nav aria-label="{{ i18n "bypass" }}">
+        {{- $content := "content" }}
+        {{- if not .IsPage }}
+            {{- $content = "list-posts" }}
+        {{- end }}
+        <a id="to-content" href="{{ printf "#%s" $content }}" aria-label="{{ i18n "toContent" }}">
+            <span>{{ i18n "toContent" }}</span>
+            <kbd class="key" aria-hidden="true" data-key="c"></kbd>
+            <span class="screening" aria-hidden="true"></span>
+        </a>
+    </nav>
+    <div class="navbar">
+        <a href="{{ absLangURL "" }}" class="navbar-logo" aria-label="{{ or site.Title site.Params.title }}, {{ i18n "home" }}">
+            <img class="logo-light" src="{{ "assets/branding/logo_light.svg" | absURL }}" alt="" aria-hidden="true">
+            <img class="logo-dark" src="{{ "assets/branding/logo_dark.svg" | absURL }}" alt="" aria-hidden="true">
+        </a>
+        <div class="navbar-links">
+            {{- range site.Menus.main }}
+                <a href="{{ .URL }}" class="navbar-link{{ if $.IsMenuCurrent "main" . }} active{{ end }}">{{ .Name }}{{ if strings.HasPrefix .URL "http" }}<span class="external-arrow" aria-hidden="true"></span>{{ end }}</a>
+            {{- end }}
+        </div>
+        <div class="navbar-actions">
+            <button class="navbar-search-btn" aria-label="{{ i18n "search" }}" aria-keyshortcuts="q">
+                <img src="{{ "assets/icons/magnifying_glass.svg" | absURL }}" alt="">
+            </button>
+            <button class="hamburger" aria-label="{{ i18n "nav" }}" aria-expanded="false">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </div>
+    <div class="navbar-search-drawer" hidden>
+        <div id="search" class="on-hull">
+            <div role="presentation" class="screening js-cgpn"></div>
+        </div>
+    </div>
+    <div class="mobile-overlay" hidden>
+        <div class="mobile-panel">
+            <div class="mobile-panel-header">
+                <a href="{{ absLangURL "" }}" class="mobile-logo" aria-label="{{ or site.Title site.Params.title }}">
+                    <img class="logo-light" src="{{ "assets/branding/logo_light.svg" | absURL }}" alt="">
+                    <img class="logo-dark" src="{{ "assets/branding/logo_dark.svg" | absURL }}" alt="">
+                </a>
+                <button class="mobile-close" aria-label="{{ i18n "close" }}">✕</button>
+            </div>
+            <div class="mobile-links">
+                {{- range site.Menus.main }}
+                    <a href="{{ .URL }}" class="mobile-link{{ if $.IsMenuCurrent "main" . }} active{{ end }}">{{ .Name }}</a>
+                {{- end }}
+            </div>
+        </div>
+    </div>
+<script>
+(function(){
+    var s=localStorage.getItem('scheme');
+    var isDark=(s==='dark')||(!s&&window.matchMedia('(prefers-color-scheme:dark)').matches);
+    document.querySelectorAll('.navbar-logo .logo-light,.mobile-logo .logo-light').forEach(function(el){el.style.opacity=isDark?'1':'0'});
+    document.querySelectorAll('.navbar-logo .logo-dark,.mobile-logo .logo-dark').forEach(function(el){el.style.opacity=isDark?'0':'1'});
+})();
+</script>
+</header>

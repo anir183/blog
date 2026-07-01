@@ -1,0 +1,88 @@
+{{ "<!-- preloader.html -->" | safeHTML }}
+<div id="preloader" role="status" aria-live="polite">
+    <span class="preloader-text" id="preloader-pct">0%</span>
+</div>
+<script>
+(function(){
+    var preloader = document.getElementById('preloader');
+    var pctEl = document.getElementById('preloader-pct');
+    if (!preloader || !pctEl) return;
+
+    var displayProgress = 0;
+    var imgProgress = 0;
+    var fontProgress = 0;
+    var bundleLoaded = false;
+    var done = false;
+    var hasImages = document.images.length > 0;
+    var loadedImages = 0;
+    var metrics = 3; // images + fonts + bundle
+
+    function updateCombined() {
+        var f = fontProgress;
+        var b = bundleLoaded ? 1 : 0;
+        var i = imgProgress;
+        var combined = (f + b + i) / metrics;
+        if (combined >= 1) {
+            combined = 1;
+            if (!done) {
+                done = true;
+                setTimeout(function(){
+                    preloader.classList.add('hidden');
+                    setTimeout(function(){ preloader.style.display = 'none'; }, 500);
+                }, 200);
+            }
+        }
+        var diff = combined - displayProgress;
+        if (diff > 0.005) {
+            displayProgress = Math.min(displayProgress + Math.max(0.02, diff * 0.4), combined);
+        } else {
+            displayProgress = combined;
+        }
+        pctEl.textContent = Math.round(displayProgress * 100) + '%';
+        if (!done) requestAnimationFrame(tick);
+    }
+
+    function tick() { updateCombined(); }
+    requestAnimationFrame(tick);
+
+    // Track images
+    if (hasImages) {
+        var images = Array.from(document.images);
+        images.forEach(function(img){
+            if (img.complete) {
+                loadedImages++;
+                imgProgress = loadedImages / images.length;
+            } else {
+                img.addEventListener('load', function(){ loadedImages++; imgProgress = loadedImages / images.length; }, { once: true });
+                img.addEventListener('error', function(){ loadedImages++; imgProgress = loadedImages / images.length; }, { once: true });
+            }
+        });
+    } else {
+        imgProgress = 1;
+    }
+
+    // Track fonts
+    if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(function(){ fontProgress = 1; });
+    } else {
+        fontProgress = 1;
+    }
+
+    // Track JS bundle — set by onload on hugo-brewm.js
+    if (window.__jsBundleLoaded) { bundleLoaded = true; }
+    var checkBundle = setInterval(function(){
+        if (window.__jsBundleLoaded) { bundleLoaded = true; clearInterval(checkBundle); }
+    }, 100);
+
+    // Safety timeout — hide after 8s no matter what
+    setTimeout(function(){
+        if (!done) {
+            displayProgress = 1;
+            pctEl.textContent = '100%';
+            preloader.classList.add('hidden');
+            setTimeout(function(){ preloader.style.display = 'none'; }, 500);
+            done = true;
+        }
+    }, 8000);
+})();
+</script>

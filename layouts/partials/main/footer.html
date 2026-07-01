@@ -1,0 +1,14 @@
+{{ "<!-- main/footer.html (overridden: 3-column grid) -->" | safeHTML }}
+{{- $footerPages := where .Site.RegularPages "Type" "footer" }}
+{{- if $footerPages }}
+<hr class="hide">
+<footer id="main-footer" class="pf-footer">
+    <div class="pf-footer-grid">
+        {{- range $p := $footerPages }}
+        <div class="pf-footer-col">
+            {{ $p.Content }}
+        </div>
+        {{- end }}
+    </div>
+</footer>
+{{- end }}

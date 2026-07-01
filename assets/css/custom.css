@@ -1,0 +1,879 @@
+/* == portfolio typography ============================================ */
+
+/* unbounded — headings, titles, branding */
+@font-face {
+  font-family: 'Unbounded';
+  font-style: normal;
+  font-weight: 200 900;
+  font-display: swap;
+  src: url('/fonts/unbounded/Unbounded-VariableFont_wght.woff2') format('woff2');
+}
+
+/* bebasneue — labels, nav links, captions */
+@font-face {
+  font-family: 'BebasNeue';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/bebas_neue/BebasNeue-Regular.woff2') format('woff2');
+}
+
+/* ubuntu — body text */
+@font-face {
+  font-family: 'Ubuntu';
+  font-style: normal;
+  font-weight: 300 700;
+  font-display: swap;
+  src: url('/fonts/ubuntu_sans/UbuntuSans-VariableFont_wdth,wght.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Ubuntu';
+  font-style: italic;
+  font-weight: 300 700;
+  font-display: swap;
+  src: url('/fonts/ubuntu_sans/UbuntuSans-Italic-VariableFont_wdth,wght.ttf') format('truetype');
+}
+
+/* jetbrains mono — code, monospace */
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 100 800;
+  font-display: swap;
+  src: url('/fonts/jetbrains_mono/JetBrainsMono-VariableFont_wght.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: italic;
+  font-weight: 100 800;
+  font-display: swap;
+  src: url('/fonts/jetbrains_mono/JetBrainsMono-Italic-VariableFont_wght.ttf') format('truetype');
+}
+
+/* == css variable overrides ========================================= */
+
+:root {
+  --rm: 'Unbounded';
+  --sf: 'Ubuntu';
+  --tt: 'JetBrains Mono';
+  --ff-label: 'BebasNeue';
+  --hl: var(--ac);
+}
+
+/* == logotype — follow fg instead of off (contrast-safe) =========== */
+
+#logo #logotype__text {
+    --off: var(--fg);
+}
+
+/* == heading styles ================================================= */
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--rm);
+  font-style: normal;
+  font-weight: 700;
+}
+
+/* == external link arrow (base-ui icon, rotated top-right) ========== */
+
+.external-arrow {
+    font-size: 1.1em;
+    margin-left: 6px;
+    line-height: 1;
+}
+
+.external-arrow::before {
+    font-family: 'base-ui';
+    content: '\e902';
+    display: inline-block;
+    transform: rotate(45deg);
+}
+
+/* == navigation — bebasneue for nav links =========================== */
+
+nav > ul > li > a {
+  font-family: var(--ff-label);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+/* == section titles — bebasneue ===================================== */
+
+.section-title {
+  font-family: var(--ff-label);
+  letter-spacing: 0.15em;
+}
+
+/* == full-width sticky header/footer (override .pagewidth --void) === */
+
+body > footer.pagewidth {
+    padding: 0 calc(1.5rem + 1ex);
+}
+
+/* prevent white-border flash when .has-border toggles on contrast change */
+#background-header,
+#background-footer {
+    color: transparent !important;
+}
+
+/* align search dropdown right edge with full-width header */
+.pagefind-ui,
+.form.on-plank {
+    margin-right: calc(1.5rem + 1ex);
+}
+
+/* == selection colors =============================================== */
+
+::selection {
+  color: var(--bg);
+  background: var(--ac);
+}
+
+/* == feed card refinements ========================================== */
+
+/* more padding + persistent faint background */
+.feed-item {
+    padding: 1.5rem !important;
+    background-color: rgba(128, 128, 128, 0.04);
+}
+
+/* hover — background deepens, no scale */
+.feed-item:hover,
+.feed-item:focus-within {
+    --tsf: none !important;
+    background-color: rgba(128, 128, 128, 0.08);
+}
+
+/* kill overlay expanding background + inherited border-bottom */
+.feed-item > a {
+    border-bottom: none !important;
+}
+
+.feed-item > a:hover,
+.feed-item > a:focus {
+    top: 2.5rem !important;
+    bottom: 3rem !important;
+    background: none !important;
+}
+
+/* border wipe — hidden at rest, above overlay */
+.feed-item::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2pt;
+    background: var(--ac);
+    z-index: 2;
+    transition: width 0.3s ease;
+    transition-delay: 0.2s;
+}
+
+/* on hover — wipe left to right after background fades */
+.feed-item:hover::after,
+.feed-item:focus-within::after {
+    width: 100%;
+}
+
+/* == full-width content in posts ==================================== */
+
+#main-article section > p,
+#content > blockquote,
+#content > ul,
+#content > ol {
+  width: 100%;
+}
+
+/* == copy-url button in post header ================================= */
+
+#navigatorCopy::before {
+  font-family: 'base-ui';
+  content: '\e912';
+}
+
+#copy {
+  display: none;
+}
+
+/* == footer — prevent sub-columns in secondary section ============== */
+
+#main-footer-secondary {
+  column-width: unset !important;
+  column-count: unset !important;
+}
+
+/* == focus & action buttons match a11y summary style =============== */
+
+#focusMode {
+    position: static !important;
+    padding: 0 !important;
+    background: none !important;
+    border-radius: 0 !important;
+}
+
+#focusModeButton {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    white-space: nowrap;
+    opacity: 1 !important;
+    padding: .6ex 1ex;
+    font-weight: 550;
+    border-bottom: 2pt solid transparent;
+    cursor: pointer;
+}
+
+#focusModeButton:hover,
+#focusModeButton:focus-visible {
+    border-color: var(--ac);
+    animation: underline 127ms;
+}
+
+#has-a11y-summary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    white-space: nowrap;
+}
+
+/* compensate for &nbsp; prefix in a11y summary span */
+#has-a11y-summary span {
+    margin-left: -0.25em !important;
+}
+
+#focusModeButton .t,
+#to-top .t {
+    position: unset !important;
+    visibility: visible !important;
+    display: inline !important;
+    --tsf: none !important;
+    top: auto !important;
+    margin-left: 0 !important;
+    background: none !important;
+    border-radius: 0 !important;
+    width: auto !important;
+    padding: 0 !important;
+    color: inherit !important;
+    font: inherit !important;
+}
+
+#focusModeButton .t::after,
+#to-top .t::after {
+    display: none !important;
+}
+
+#to-top {
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: flex-start !important;
+    border: none;
+    background: none;
+    border-radius: 0 !important;
+    width: auto !important;
+    height: auto !important;
+    padding: .6ex 1ex;
+    font-weight: 550;
+    border-bottom: 2pt solid transparent;
+    color: var(--fg);
+    gap: 0.5rem;
+    white-space: nowrap;
+}
+
+#to-top:hover,
+#to-top:focus-visible {
+    border-color: var(--ac);
+    animation: underline 127ms;
+}
+
+#to-top::before {
+    --tsf: none;
+}
+
+/* == subtle accent touches ========================================== */
+
+blockquote {
+  border-left-color: var(--ac);
+}
+
+a.cta {
+  font-family: var(--rm);
+  font-weight: 600;
+}
+
+/* == mobile — hide text labels, keep only icons ===================== */
+
+@media (max-width: 640px) {
+    #focusModeButton .t,
+    #to-top .t {
+        display: none !important;
+    }
+}
+
+/* == hide digital well-being clock and grain texture =============== */
+
+#dwclock,
+.grain {
+    display: none !important;
+}
+
+/* == hide horizontal scrollbar in carousel ========================= */
+
+.crsl,
+.crsl__nav > ul {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.crsl::-webkit-scrollbar,
+.crsl__nav > ul::-webkit-scrollbar {
+    display: none;
+}
+
+/* == hide manual save button (auto-save enabled) ================== */
+
+#saveButton {
+    display: none !important;
+}
+
+/* == od-active — strip masking styles when OpenDyslexic is on ====== */
+
+html.od-active .section-title,
+html.od-active nav > ul > li > a {
+    font-variant: normal;
+    text-transform: none;
+    letter-spacing: normal;
+}
+
+/* == fixed navbar =================================================== */
+
+:root {
+    --vhead: 70px;
+    --vbody: calc(100vh - var(--vhead) - var(--vfoot));
+}
+
+body > header.pagewidth {
+    display: block !important;
+    height: auto !important;
+    align-items: unset !important;
+    justify-content: unset !important;
+    padding: 0 !important;
+}
+
+#background-header {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: var(--bg);
+}
+
+body > header.pagewidth > nav[aria-label="bypass"] {
+    position: absolute;
+}
+
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 24px;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.3s, background 0.3s;
+    position: relative;
+    z-index: 1;
+}
+
+#header.scrolled .navbar {
+    border-bottom-color: var(--g18s, rgba(128,128,128,0.13));
+    background: color-mix(in srgb, var(--bg) 70%, transparent);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+}
+
+/* Logo — dual theme SVGs */
+.navbar-logo {
+    position: relative;
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+    width: 36px;
+    height: 36px;
+    filter: drop-shadow(0 2px 8px rgba(0,0,0,0.35));
+    --anm: none !important;
+    border-bottom: none !important;
+}
+
+.navbar-logo:hover,
+.navbar-logo:focus {
+    --anm: none !important;
+    border-color: transparent !important;
+}
+
+.navbar-logo img {
+    position: absolute;
+    inset: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    transition: opacity 0.7s;
+}
+
+.navbar-logo .logo-light {
+    opacity: 0;
+}
+
+html.dark-mode .navbar-logo .logo-light {
+    opacity: 1;
+}
+
+html.dark-mode .navbar-logo .logo-dark {
+    opacity: 0;
+}
+
+/* Nav links — BebasNeue, pushed right before actions */
+.navbar-links {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-left: auto;
+    margin-right: 24px;
+}
+
+.navbar-link {
+    font-family: var(--ff-label, 'BebasNeue');
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-decoration: none;
+    padding: 10px 24px;
+    line-height: 20px;
+    color: var(--fg);
+    border-bottom: none !important;
+    transition: color 0.2s;
+}
+
+.navbar-link:hover,
+.navbar-link.active {
+    color: var(--ac);
+}
+
+/* Actions area */
+.navbar-actions {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-shrink: 0;
+}
+
+.navbar-search-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    border: 1px solid var(--g18s, rgba(128,128,128,0.4));
+    border-radius: 9999px;
+    background: color-mix(in srgb, var(--bg) 70%, transparent);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    cursor: pointer;
+    color: var(--fg);
+}
+
+.navbar-search-btn img {
+    display: block;
+    width: 14px;
+    height: 14px;
+    transition: opacity 0.2s;
+}
+
+.navbar-search-btn:hover img {
+    opacity: 1;
+}
+
+/* Hamburger — hidden on desktop */
+.hamburger {
+    display: none;
+    position: relative;
+    width: 32px;
+    height: 32px;
+    margin-left: 6px;
+    padding: 0;
+    border: none;
+    background: none;
+    cursor: pointer;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.25));
+}
+
+.hamburger span {
+    position: absolute;
+    left: 50%;
+    display: block;
+    width: 24px;
+    height: 2px;
+    border-radius: 9999px;
+    background: var(--fg);
+    transform: translateX(-50%);
+    transition: all 0.3s;
+}
+
+.hamburger span:nth-child(1) {
+    top: 8px;
+}
+
+.hamburger span:nth-child(2) {
+    top: 15px;
+}
+
+.hamburger span:nth-child(3) {
+    top: 22px;
+}
+
+.hamburger.open span:nth-child(1) {
+    top: 15px;
+    transform: translateX(-50%) rotate(45deg);
+}
+
+.hamburger.open span:nth-child(2) {
+    opacity: 0;
+}
+
+.hamburger.open span:nth-child(3) {
+    top: 15px;
+    transform: translateX(-50%) rotate(-45deg);
+}
+
+/* Search drawer */
+.navbar-search-drawer {
+    position: fixed;
+    top: var(--vhead);
+    left: 0;
+    right: 0;
+    z-index: 99;
+    border-bottom: 1px solid var(--g18s, rgba(128,128,128,0.13));
+    background: var(--bg);
+    padding: 0.75rem calc(1.5rem + 1ex);
+}
+
+.navbar-search-drawer[hidden] {
+    display: none;
+}
+
+.navbar-search-controls {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+}
+
+.navbar-search-title {
+    font-family: var(--ff-label, 'BebasNeue');
+    font-size: 0.875rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--fg);
+    padding-left: 0.5rem;
+}
+
+.navbar-search-close {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.5rem;
+    height: 1.5rem;
+    padding: 0;
+    margin-right: 0.25rem;
+    transform: translateY(-1px);
+    border: 1px solid var(--g18s, rgba(128,128,128,0.4));
+    border-radius: 50%;
+    background: color-mix(in srgb, var(--bg) 70%, transparent);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    cursor: pointer;
+    font-size: 0.875rem;
+    color: var(--fg);
+    opacity: 0.8;
+    transition: opacity 0.2s;
+}
+
+.navbar-search-close:hover {
+    opacity: 1;
+}
+
+#search {
+    width: 100%;
+}
+
+/* Mobile overlay */
+.mobile-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    background: rgba(0, 0, 0, 0.35);
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+}
+
+.mobile-overlay[hidden] {
+    display: none;
+}
+
+.mobile-panel {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 18rem;
+    max-width: 85vw;
+    height: 100%;
+    background: var(--bg);
+    display: flex;
+    flex-direction: column;
+    padding: 1.5rem;
+    overflow-y: auto;
+}
+
+.mobile-panel-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 2.5rem;
+}
+
+.mobile-logo {
+    position: relative;
+    display: block;
+    width: 2rem;
+    height: 2rem;
+}
+
+.mobile-logo img {
+    position: absolute;
+    inset: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    transition: opacity 0.7s;
+}
+
+.mobile-logo .logo-light {
+    opacity: 0;
+}
+
+html.dark-mode .mobile-logo .logo-light {
+    opacity: 1;
+}
+
+html.dark-mode .mobile-logo .logo-dark {
+    opacity: 0;
+}
+
+.mobile-close {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    padding: 0;
+    border: 1px solid var(--g18s, rgba(128,128,128,0.13));
+    border-radius: 50%;
+    background: none;
+    cursor: pointer;
+    font-size: 1rem;
+    color: var(--fg);
+    transition: border-color 0.2s;
+}
+
+.mobile-close:hover {
+    border-color: var(--ac);
+}
+
+.mobile-links {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.mobile-link {
+    font-size: 1.5rem;
+    font-weight: 800;
+    letter-spacing: 0.02em;
+    text-decoration: none;
+    padding: 0.75rem 1rem;
+    color: var(--fg);
+    border-bottom: none !important;
+    transition: color 0.2s;
+}
+
+.mobile-link:hover,
+.mobile-link.active {
+    color: var(--ac);
+}
+
+/* Responsive — hide nav links, show hamburger */
+@media (max-width: 1024px) {
+    .navbar {
+        padding: 12px 20px;
+    }
+    .navbar-links {
+        display: none;
+    }
+    .navbar-logo {
+        width: 32px;
+        height: 32px;
+    }
+    .mobile-logo {
+        width: 32px;
+        height: 32px;
+    }
+    .navbar-search-btn,
+    .hamburger {
+        width: 28px;
+        height: 28px;
+    }
+    .hamburger {
+        display: block;
+    }
+    .navbar-search-btn img {
+        width: 12px;
+        height: 12px;
+    }
+}
+
+@media (max-width: 640px) {
+    .navbar-search-drawer {
+        padding: 0.5rem 1rem;
+    }
+}
+
+/* == footer 3-column grid ========================================== */
+
+.pf-footer {
+    position: relative;
+    padding: 14px 24px;
+    font-size: 0.65rem;
+    line-height: 1rem;
+    border-top: 1px solid var(--g18s, rgba(128,128,128,0.13));
+    background: color-mix(in srgb, var(--bg) 70%, transparent);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    color: color-mix(in srgb, var(--fg) 60%, transparent);
+}
+
+.pf-footer-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+}
+
+@media (min-width: 1100px) {
+    .pf-footer {
+        padding: 14px 24px;
+    }
+    .pf-footer-grid {
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 1.25rem;
+    }
+    .pf-footer-col:nth-child(1) { text-align: left; }
+    .pf-footer-col:nth-child(2) { text-align: center; }
+    .pf-footer-col:nth-child(3) { text-align: right; }
+}
+
+.pf-footer-col {
+    display: flex;
+    flex-direction: column;
+}
+
+.pf-footer-col strong,
+.pf-footer-col b {
+    display: block;
+    font-family: var(--ff-label, 'BebasNeue');
+    font-size: 0.75rem;
+    font-weight: 400;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: color-mix(in srgb, var(--fg) 40%, transparent);
+    margin-bottom: 0.5rem;
+}
+
+.pf-footer-col ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    line-height: 1.5;
+}
+
+.pf-footer-col li,
+.pf-footer-col p {
+    margin: 0;
+    line-height: 1.6;
+}
+
+.pf-footer-col a {
+    color: inherit;
+    text-decoration: none;
+    border-bottom: none;
+    transition: color 0.2s;
+}
+
+.pf-footer-col:nth-child(1) a,
+.pf-footer-col:nth-child(2) a {
+    color: color-mix(in srgb, var(--ac) 55%, transparent);
+}
+
+.pf-footer-col:nth-child(1) a:hover,
+.pf-footer-col:nth-child(2) a:hover {
+    color: color-mix(in srgb, var(--ac) 75%, transparent);
+}
+
+.pf-footer-col a:hover {
+    color: color-mix(in srgb, var(--ac) 75%, transparent);
+    --anm: none;
+    border-bottom: none;
+    text-decoration: none;
+}
+
+/* Override theme's #main-footer rules that conflict */
+#main-footer > div {
+    padding: 0 !important;
+}
+
+#main-footer strong,
+#main-footer b {
+    padding-bottom: 0;
+}
+
+#main-footer {
+    margin: 0;
+}
+
+/* == footer link arrows — suppress theme defaults ================== */
+
+#main-footer a::after {
+    display: none !important;
+}
+
+/* == page transition overlay ======================================== */
+
+.page-transition-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 9998;
+    background: var(--bg);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s linear;
+}
+
+.page-transition-overlay.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .page-transition-overlay {
+        transition-duration: 0.01ms;
+    }
+}
