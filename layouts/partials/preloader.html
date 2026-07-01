@@ -13,25 +13,36 @@
     var fontProgress = 0;
     var bundleLoaded = false;
     var done = false;
+    var fading = false;
     var hasImages = document.images.length > 0;
     var loadedImages = 0;
-    var metrics = 3; // images + fonts + bundle
+    var metrics = 3;
+
+    function startFade() {
+        if (fading) return;
+        fading = true;
+
+        // Fade text out (transition: 0.4s)
+        pctEl.classList.add('hidden');
+
+        // After text fade completes, fade preloader background
+        setTimeout(function() {
+            preloader.classList.add('hidden');
+        }, 450);
+
+        // After preloader fade completes, remove from flow
+        setTimeout(function() {
+            preloader.style.display = 'none';
+        }, 1000);
+    }
 
     function updateCombined() {
         var f = fontProgress;
         var b = bundleLoaded ? 1 : 0;
         var i = imgProgress;
         var combined = (f + b + i) / metrics;
-        if (combined >= 1) {
-            combined = 1;
-            if (!done) {
-                done = true;
-                setTimeout(function(){
-                    preloader.classList.add('hidden');
-                    setTimeout(function(){ preloader.style.display = 'none'; }, 500);
-                }, 200);
-            }
-        }
+        if (combined > 1) combined = 1;
+
         var diff = combined - displayProgress;
         if (diff > 0.005) {
             displayProgress = Math.min(displayProgress + Math.max(0.02, diff * 0.4), combined);
@@ -39,6 +50,12 @@
             displayProgress = combined;
         }
         pctEl.textContent = Math.round(displayProgress * 100) + '%';
+
+        if (!done && combined >= 1 && displayProgress >= 0.999) {
+            done = true;
+            startFade();
+            return;
+        }
         if (!done) requestAnimationFrame(tick);
     }
 
@@ -74,15 +91,21 @@
         if (window.__jsBundleLoaded) { bundleLoaded = true; clearInterval(checkBundle); }
     }, 100);
 
-    // Safety timeout — hide after 8s no matter what
+    // Safety timeout — force all progress to 1 after 8s so it interpolates to 100%
+    setTimeout(function(){
+        fontProgress = 1;
+        imgProgress = 1;
+        bundleLoaded = true;
+    }, 8000);
+
+    // Hard timeout — force display to 100% and fade after 12s
     setTimeout(function(){
         if (!done) {
             displayProgress = 1;
             pctEl.textContent = '100%';
-            preloader.classList.add('hidden');
-            setTimeout(function(){ preloader.style.display = 'none'; }, 500);
             done = true;
+            startFade();
         }
-    }, 8000);
+    }, 12000);
 })();
 </script>
