@@ -51,8 +51,8 @@
  }
   document.documentElement.style.backgroundColor=bg;
   document.head.insertAdjacentHTML('beforeend','<style id="flash-bg">body{--bg:'+bg+'!important}</style>');
-  var lo='.navbar-logo .logo-light,.mobile-logo .logo-light',
-      lo_d='.navbar-logo .logo-dark,.mobile-logo .logo-dark';
+var lo='.navbar-logo .logo-light',
+    lo_d='.navbar-logo .logo-dark';
   if(s==='dark'){
    document.head.insertAdjacentHTML('beforeend','<style id="flash-logo">'+lo+'{opacity:1!important}'+lo_d+'{opacity:0!important}</style>');
   } else {
@@ -115,7 +115,7 @@
     var ls=document.getElementById('lightSwitch');
     var isDark=ls?ls.checked:localStorage.getItem('scheme')==='dark'||(!localStorage.getItem('scheme')&&window.matchMedia('(prefers-color-scheme:dark)').matches);
     document.documentElement.classList.toggle('dark-mode',isDark);
-    document.querySelectorAll('.navbar-logo img,.mobile-logo img').forEach(function(el){el.style.opacity=''});
+    document.querySelectorAll('.navbar-logo img').forEach(function(el){el.style.opacity=''});
    }
   // Wrap setColor — keep html bg in sync, clear inline logo styles so class-based CSS works
   var _setColor=window.setColor;
@@ -125,7 +125,7 @@
    if(b)document.documentElement.style.backgroundColor=b;
    var ls=document.getElementById('lightSwitch');
    if(ls)document.documentElement.classList.toggle('dark-mode',ls.checked);
-   document.querySelectorAll('.navbar-logo img,.mobile-logo img').forEach(function(el){el.style.opacity=''});
+   document.querySelectorAll('.navbar-logo img').forEach(function(el){el.style.opacity=''});
   };
  if(!localStorage.getItem('scheme')&&!localStorage.getItem('contrast')&&typeof setColor=='function'){
   setColor();saveA11y();

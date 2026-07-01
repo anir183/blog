@@ -615,10 +615,22 @@ html.dark-mode .navbar-logo .logo-dark {
     background: rgba(0, 0, 0, 0.35);
     -webkit-backdrop-filter: blur(8px);
     backdrop-filter: blur(8px);
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.15s ease, visibility 0s 0.15s;
 }
 
 .mobile-overlay[hidden] {
-    display: none;
+    display: block;
+    visibility: hidden;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.mobile-overlay:not([hidden]) {
+    visibility: visible;
+    opacity: 1;
+    transition: opacity 0.15s ease, visibility 0s 0s;
 }
 
 .mobile-panel {
@@ -631,46 +643,22 @@ html.dark-mode .navbar-logo .logo-dark {
     background: var(--bg);
     display: flex;
     flex-direction: column;
+    align-items: center;
+    justify-content: center;
     padding: 1.5rem;
     overflow-y: auto;
+    transform: translateX(100%);
+    transition: transform 0.25s ease;
 }
 
-.mobile-panel-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 2.5rem;
-}
-
-.mobile-logo {
-    position: relative;
-    display: block;
-    width: 2rem;
-    height: 2rem;
-}
-
-.mobile-logo img {
-    position: absolute;
-    inset: 0;
-    display: block;
-    width: 100%;
-    height: 100%;
-    transition: opacity 0.7s;
-}
-
-.mobile-logo .logo-light {
-    opacity: 0;
-}
-
-html.dark-mode .mobile-logo .logo-light {
-    opacity: 1;
-}
-
-html.dark-mode .mobile-logo .logo-dark {
-    opacity: 0;
+.mobile-overlay:not([hidden]) .mobile-panel {
+    transform: translateX(0);
 }
 
 .mobile-close {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -684,6 +672,7 @@ html.dark-mode .mobile-logo .logo-dark {
     font-size: 1rem;
     color: var(--fg);
     transition: border-color 0.2s;
+    z-index: 1;
 }
 
 .mobile-close:hover {
@@ -693,15 +682,18 @@ html.dark-mode .mobile-logo .logo-dark {
 .mobile-links {
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
+    align-items: center;
+    gap: 1.25rem;
 }
 
 .mobile-link {
-    font-size: 1.5rem;
-    font-weight: 800;
-    letter-spacing: 0.02em;
+    font-family: var(--rm);
+    font-size: 1.875rem;
+    font-weight: 900;
+    letter-spacing: 0.025em;
+    text-align: center;
     text-decoration: none;
-    padding: 0.75rem 1rem;
+    padding: 0.75rem 0;
     color: var(--fg);
     border-bottom: none !important;
     transition: color 0.2s;
@@ -724,10 +716,6 @@ html.dark-mode .mobile-logo .logo-dark {
         width: 32px;
         height: 32px;
     }
-    .mobile-logo {
-        width: 32px;
-        height: 32px;
-    }
     .navbar-search-btn,
     .hamburger {
         width: 28px;
@@ -743,6 +731,11 @@ html.dark-mode .mobile-logo .logo-dark {
 }
 
 @media (max-width: 640px) {
+    .mobile-panel {
+        width: 100%;
+        max-width: 100%;
+    }
+
     .navbar-search-drawer {
         padding: 0.5rem 1rem;
     }
