@@ -3,7 +3,6 @@ title = 'blog183'
 theme = 'hugo-brewm'
 
 enableGitInfo = true
-canonifyURLs = true
 enableRobotsTXT = true
 defaultContentLanguage = 'en'
 defaultContentLanguageInSubdir = false

@@ -6,7 +6,7 @@
   font-style: normal;
   font-weight: 200 900;
   font-display: swap;
-  src: url('/fonts/unbounded/Unbounded-VariableFont_wght.woff2') format('woff2');
+  src: url('../fonts/unbounded/Unbounded-VariableFont_wght.woff2') format('woff2');
 }
 
 /* bebasneue — labels, nav links, captions */
@@ -15,7 +15,7 @@
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: url('/fonts/bebas_neue/BebasNeue-Regular.woff2') format('woff2');
+  src: url('../fonts/bebas_neue/BebasNeue-Regular.woff2') format('woff2');
 }
 
 /* ubuntu — body text */
@@ -24,14 +24,14 @@
   font-style: normal;
   font-weight: 300 700;
   font-display: swap;
-  src: url('/fonts/ubuntu_sans/UbuntuSans-VariableFont_wdth,wght.woff2') format('woff2');
+  src: url('../fonts/ubuntu_sans/UbuntuSans-VariableFont_wdth,wght.woff2') format('woff2');
 }
 @font-face {
   font-family: 'Ubuntu';
   font-style: italic;
   font-weight: 300 700;
   font-display: swap;
-  src: url('/fonts/ubuntu_sans/UbuntuSans-Italic-VariableFont_wdth,wght.ttf') format('truetype');
+  src: url('../fonts/ubuntu_sans/UbuntuSans-Italic-VariableFont_wdth,wght.ttf') format('truetype');
 }
 
 /* jetbrains mono — code, monospace */
@@ -40,14 +40,14 @@
   font-style: normal;
   font-weight: 100 800;
   font-display: swap;
-  src: url('/fonts/jetbrains_mono/JetBrainsMono-VariableFont_wght.woff2') format('woff2');
+  src: url('../fonts/jetbrains_mono/JetBrainsMono-VariableFont_wght.woff2') format('woff2');
 }
 @font-face {
   font-family: 'JetBrains Mono';
   font-style: italic;
   font-weight: 100 800;
   font-display: swap;
-  src: url('/fonts/jetbrains_mono/JetBrainsMono-Italic-VariableFont_wght.ttf') format('truetype');
+  src: url('../fonts/jetbrains_mono/JetBrainsMono-Italic-VariableFont_wght.ttf') format('truetype');
 }
 
 /* == css variable overrides ========================================= */
