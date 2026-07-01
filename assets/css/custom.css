@@ -877,3 +877,36 @@ html.dark-mode .mobile-logo .logo-dark {
         transition-duration: 0.01ms;
     }
 }
+
+/* == author avatar — dual-theme toggle ============================= */
+
+.avatar-wrapper {
+    position: relative;
+    display: inline-block;
+    width: 3rem;
+    height: 3rem;
+    margin-right: 12pt;
+    flex-shrink: 0;
+}
+
+.avatar-img {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: opacity 0.7s;
+}
+
+.avatar-light {
+    opacity: 0;
+}
+
+html.dark-mode .avatar-light {
+    opacity: 1;
+}
+
+html.dark-mode .avatar-dark {
+    opacity: 0;
+}
