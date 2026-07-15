@@ -1,13 +1,17 @@
 ---
-title: "Re-introduction"
+title: Re-introduction
 date: 2026-06-29
-description: "A fresh start, a new corner of the web"
+description: A fresh start, a new corner of the web
 draft: false
-type: "post"
-author: "anir183"
-tags: ["meta", "hello-world"]
-categories: ["meta"]
-stage: "seedling"
+type: post
+author: anir183
+tags:
+  - yap
+categories:
+  - yapping
+stage: seedling
+cover: https://raw.githubusercontent.com/foxihd/hugo-et-hd/master/static/svg/flowlines/7.svg
+image: https://raw.githubusercontent.com/foxihd/hugo-et-hd/master/static/svg/flowlines/7.svg
 ---
 
 This space has been a long time coming.

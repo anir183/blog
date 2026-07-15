@@ -8,4 +8,6 @@ params:
 **Colophon**
 
 - [Hugo](https://gohugo.io)
-- [brew](https://github.com/foxihd/hugo-brewm)
+- [brewm](https://github.com/foxihd/hugo-brewm)
+- [giscus](https://giscus.app)
+- [pagefind](https://pagefind.app)

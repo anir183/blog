@@ -490,6 +490,10 @@ html.dark-mode .navbar-logo .logo-dark {
     transition: opacity 0.2s;
 }
 
+html:not(.dark-mode) .navbar-search-btn img {
+    filter: invert(1);
+}
+
 .navbar-search-btn:hover img {
     opacity: 1;
 }
@@ -610,6 +614,7 @@ html.dark-mode .navbar-logo .logo-dark {
 /* Giscus comments — 1px narrower so right border is visible */
 .giscus {
     width: calc(100% - 1px);
+    margin-bottom: 4rem;
 }
 
 iframe.giscus-frame {

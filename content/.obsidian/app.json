@@ -4,7 +4,7 @@
   "useMarkdownLinks": true,
   "showUnsupportedFiles": true,
   "alwaysUpdateLinks": false,
-  "livePreview": false,
+  "livePreview": true,
   "readableLineLength": true,
   "newFileLocation": "current",
   "attachmentFolderPath": "./",
