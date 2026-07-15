@@ -24,4 +24,9 @@ But I do have some ideas for stuff I'd like to blog (if I remember to). I watch 
 So I'd like to do something like that - document my achievements, projects I've made, experiences I've had, devlogs, etc
 
 ### How?
-Now that I had an inkling of an idea of what I want to do, I need to create a place to do it. Dev, Medium, HackerNews, etc., there are tons of platforms to do 
+Now that I had an inkling of an idea of what I want to do, I need to create a place to do it. Dev, Medium, HackerNews, etc., there are tons of platforms to do a bit of dev-related bloggin. There are many more for general purpose blogging. But that's boring, and as I said before, I hadn't made the staple blog project before.
+
+Hence, I tried my hands at this. The TL;DR is a static hugo site with the hugo-brewm theme, pagefinder indexing and giscus comments. But the details will come in a bit.
+
+### Why?
+So why these technologies? Honestly, no particular reason. I had a set of requirements to meet.
