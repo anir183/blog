@@ -172,7 +172,7 @@ var lo='.navbar-logo .logo-light',
    if(!window.__pagefindLoaded){
     window.__pagefindLoaded=true;
     var s=document.createElement('script');
-    s.src='{{ "/pagefind/pagefind-ui.js" | absURL }}';
+    s.src='{{ "pagefind/pagefind-ui.js" | absURL }}';
     s.onload=function(){
      new PagefindUI({element:'#search',showImages:false,translations:{placeholder:'Query'}});
      var inp=document.querySelector('.pagefind-ui__search-input');
