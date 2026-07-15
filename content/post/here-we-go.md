@@ -17,4 +17,11 @@ First of all, making a blog website is one of the staple beginner projects for w
 The main reason I initially wanted to write a blog was a little something called MAR points. Mandatory Activity Requirement points are something I need 25 of, to be allowed to move on to the next year of my college course. And apparently a blog qualifies for 20, I think. So a pretty good deal!
 
 ### What?
-So... what would I even do in a blog then?
+So... what would I even do in a blog then? Truth be told, I don't really know. This might very well be the only post to ever see the light of the sun, just to those juicy points.
+
+But I do have some ideas for stuff I'd like to blog (if I remember to). I watch a YouTuber called "[ThePrimeagen](https://www.youtube.com/@ThePrimeTimeagen)", who does article reads. Some of my favorite ones like "Inner JSON Effect", "Dieselgate, but for trains.", etc. were from his streams.
+
+So I'd like to do something like that - document my achievements, projects I've made, experiences I've had, devlogs, etc
+
+### How?
+Now that I had an inkling of an idea of what I want to do, I need to create a place to do it. Dev, Medium, HackerNews, etc., there are tons of platforms to do 
