@@ -72,24 +72,20 @@ enableMissingTranslationPlaceholders = true
     email = 'anirban@anir183.is-a.dev'
 
   [params.comments]
-    disabled = true
-    # platform = 'fediverse'
+    disabled = false
 
-  # [params.fediverse]
-  #   instance = 'example.com'
-  #   username = 'username'
-
-  # [params.giscus]
-  #   repo = 'anir183/blog183'
-  #   repoID = ''
-  #   category = 'Comments'
-  #   categoryID = ''
-  #   mapping = 'og:title'
-  #   reactionsEnabled = '1'
-  #   emitMetadata = '0'
-  #   inputPosition = 'bottom'
-  #   theme = 'dark'
-  #   loading = 'lazy'
+  [params.giscus]
+    repo = 'anir183/blog'
+    repoID = 'R_kgDOTIYfFQ'
+    category = 'comments'
+    categoryID = 'DIC_kwDOTIYfFc4DBPu0'
+    mapping = 'pathname'
+    strict = '1'
+    reactionsEnabled = '1'
+    emitMetadata = '1'
+    inputPosition = 'top'
+    theme = 'light'
+    loading = 'lazy'
 
   [params.favicon]
     svg = '/assets/branding/logo_w_bg.svg'

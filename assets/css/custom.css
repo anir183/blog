@@ -607,6 +607,20 @@ html.dark-mode .navbar-logo .logo-dark {
     width: 100%;
 }
 
+/* Giscus comments — 1px narrower so right border is visible */
+.giscus {
+    width: calc(100% - 1px);
+}
+
+iframe.giscus-frame {
+    width: 100%;
+    border: none;
+}
+
+html:not(.dark-mode) .giscus {
+    filter: invert(0.85) !important;
+}
+
 /* Mobile overlay */
 .mobile-overlay {
     position: fixed;
