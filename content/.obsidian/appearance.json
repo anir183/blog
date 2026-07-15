@@ -1,0 +1,8 @@
+{
+  "cssTheme": "Atom",
+  "accentColor": "#eda792",
+  "monospaceFontFamily": "JetBrainsMono Nerd Font Propo",
+  "textFontFamily": "JetBrainsMono Nerd Font Propo",
+  "showViewHeader": true,
+  "showRibbon": false
+}
