@@ -35,4 +35,4 @@ Firstly, I planned to using GitHub pages to host the site; so it had to be stati
 
 Then, I would like the build process to be light and fast. Mainly, because the site "should" in theory be frequently modified to create new posts, and GitHub actions hours can pile up pretty quickly.
 
-Finally, markdown. Markdown. Markdown. Every developer knows this, and now its getting more widespread due to AI. But markdown is definitely the simplest and easiest way to write stuff.
+Finally, markdown. Markdown. Markdown. Every developer knows markdown to some extent, and now its getting more widespread due to AI. But markdown is definitely the simplest and easiest way to write stuff.
