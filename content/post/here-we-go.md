@@ -29,4 +29,10 @@ Now that I had an inkling of an idea of what I want to do, I need to create a pl
 Hence, I tried my hands at this. The TL;DR is a static hugo site with the hugo-brewm theme, pagefinder indexing and giscus comments. But the details will come in a bit.
 
 ### Why?
-So why these technologies? Honestly, no particular reason. I had a set of requirements to meet.
+So why these technologies? Honestly, no particular reason. I just had a set of requirements, and these worked well for it.
+
+Firstly, I planned to using GitHub pages to host the site; so it had to be static or at least the ability to build down to a static site.
+
+Then, I would like the build process to be light and fast. Mainly, because the site "should" in theory be frequently modified to create new posts, and GitHub actions hours can pile up pretty quickly.
+
+Finally, markdown. Markdown. Markdown. Every developer knows this, and now its getting more widespread due to AI. But markdown is definitely the simplest and easiest way to write stuff.
