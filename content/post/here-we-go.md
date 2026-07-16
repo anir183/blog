@@ -45,3 +45,4 @@ So I was pretty much set on that side of things. I've had some dealings with hug
 [Hugo-Brewm](https://themes.gohugo.io/themes/hugo-brewm) caught my eye. It looked sleek, stylish, modern and minimalist without trying too hard. So I decided to use that as a base. And as it turned out, this theme also had built-in support for Search Indexing via as [Pagefind](https://pagefind.app/) well as Comments via [Giscus](https://giscus.app), so I was pretty damn happy.
 
 ### The Workflow
+I had a project, a theme and related technicalities served on a plate. I just needed to do some plumbing and finish the job. Buuuuttt
