@@ -2,14 +2,15 @@
 title: Here we are!
 date: 2026-07-16
 description: I decided it was a good idea to try write a blog site. Why?
-draft: true
+draft: false
 type: post
 author: anir183
 tags:
   - yap
+  - tech-talk
 categories:
   - yapping
-stage: seedling
+stage: budding
 cover: https://raw.githubusercontent.com/foxihd/hugo-et-hd/master/static/svg/flowlines/7.svg
 image: https://raw.githubusercontent.com/foxihd/hugo-et-hd/master/static/svg/flowlines/7.svg
 ---
@@ -56,4 +57,6 @@ MUCH MUCH MUCH simpler that the development of my main portfolio site.
 ### Here we are
 So after all that, here we are. Site - ready, blog - posted and points - at the end of the academic year. This was fun, a small fast project which did not need much thinking on my part honestly. But I do have a space now, to share my thoughts, experiences, learning, etc.
 
-Maybe I'll add a newsletter next? So that my staggering 0 readers can stay up-to-date with my latest posts. But 
+Maybe I'll add a newsletter next? So that my staggering 0 readers can stay up-to-date with my latest posts. But we will see.
+
+That's it!
