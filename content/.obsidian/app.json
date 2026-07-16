@@ -9,5 +9,6 @@
   "newFileLocation": "current",
   "attachmentFolderPath": "./",
   "newLinkFormat": "relative",
-  "showInlineTitle": true
+  "showInlineTitle": true,
+  "strictLineBreaks": true
 }
