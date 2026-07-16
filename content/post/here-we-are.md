@@ -1,13 +1,15 @@
 ---
-title: "Here we go!"
+title: Here we are!
 date: 2026-07-16
-description: "I decided it was a good idea to try write a blog site. Why?"
+description: I decided it was a good idea to try write a blog site. Why?
 draft: true
-type: "post"
-author: "anir183"
-tags: ["yap"]
-categories: ["yapping"]
-stage: "seedling"
+type: post
+author: anir183
+tags:
+  - yap
+categories:
+  - yapping
+stage: seedling
 cover: https://raw.githubusercontent.com/foxihd/hugo-et-hd/master/static/svg/flowlines/7.svg
 image: https://raw.githubusercontent.com/foxihd/hugo-et-hd/master/static/svg/flowlines/7.svg
 ---
@@ -45,4 +47,13 @@ So I was pretty much set on that side of things. I've had some dealings with hug
 [Hugo-Brewm](https://themes.gohugo.io/themes/hugo-brewm) caught my eye. It looked sleek, stylish, modern and minimalist without trying too hard. So I decided to use that as a base. And as it turned out, this theme also had built-in support for Search Indexing via as [Pagefind](https://pagefind.app/) well as Comments via [Giscus](https://giscus.app), so I was pretty damn happy.
 
 ### The Workflow
-I had a project, a theme and related technicalities served on a plate. I just needed to do some plumbing and finish the job. Buuuuttt
+I had a project, a theme and related technicalities served on a plate. I just needed to do some plumbing and finish the job. Buuuuttt, I did NOT want to spend my time editing CSS and having to look at hugo-brewm's codebase to make any substantial edits.
+
+So I did what any reasonable person would do in the year of our lord 2026. Sold my soul to the AI overlords! The site was done in about 15 commits after bringing in the brewm theme. 7 of them were fixes, 2 minor tweaks and 1 for GitHub action setup. So it was more like 5 commits worth of changes to the theme and there was my glorious blazing fast blog.
+
+MUCH MUCH MUCH simpler that the development of my main portfolio site.
+
+### Here we are
+So after all that, here we are. Site - ready, blog - posted and points - at the end of the academic year. This was fun, a small fast project which did not need much thinking on my part honestly. But I do have a space now, to share my thoughts, experiences, learning, etc.
+
+Maybe I'll add a newsletter next? So that my staggering 0 readers can stay up-to-date with my latest posts. But 
