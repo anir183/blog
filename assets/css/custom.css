@@ -928,15 +928,6 @@ html.dark-mode .avatar-light {
     display: block;
 }
 
-@media (prefers-color-scheme: dark) {
-    .avatar-dark {
-        display: none;
-    }
-    .avatar-light {
-        display: block;
-    }
-}
-
 /* Mobile slide overlay — text at bottom edge, full width, gradient bg */
 @media (max-width: 640px) {
     aside .slide {
