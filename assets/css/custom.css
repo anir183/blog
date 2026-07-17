@@ -936,3 +936,19 @@ html.dark-mode .avatar-light {
         display: block;
     }
 }
+
+/* Mobile slide overlay — text at bottom edge, full width, gradient bg */
+@media (max-width: 640px) {
+    aside .slide {
+        position: relative;
+    }
+
+    .slide__cover + .slide__content {
+        z-index: 1;
+        margin: 1rem 0 0 !important;
+        border-radius: 0 !important;
+        background: linear-gradient(to top, var(--bg) 50%, transparent) !important;
+        padding: 5rem 1.5rem 1.5rem !important;
+        width: 100% !important;
+    }
+}
