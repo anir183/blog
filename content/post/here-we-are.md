@@ -41,11 +41,11 @@ Then, I would like the build process to be light and fast. Mainly, because the s
 Finally, markdown. Markdown. Markdown. Every developer knows markdown to some extent, and now its getting more widespread due to AI. But markdown is definitely the simplest and easiest way to write rich text on the internet.
 
 ### Let's Start Building
-Now that I had my toolbox ready, it was time to make stuff. I had recently finished my portfolio site ([plug](https://anir183.is-a/dev)), so I already knew what kind of design language I wanted. And, thanks to GitHub pages routing, I could just create another repository called "blog" which would route to `\<main site url\>/blog`.
+Now that I had my toolbox ready, it was time to make stuff. I had recently finished my portfolio site ([plug](https://anir183.is-a.dev)), so I already knew what kind of design language I wanted. And, thanks to GitHub pages routing, I could just create another repository called "blog" which would route to `\<main site url\>/blog`.
 
 So I was pretty much set on that side of things. I've had some dealings with hugo before. I think I even tried to create a portfolio site using hugo a couple years back. So I wasn't completely out in the water. I created a project and started browsing through the available themes.
 
-[Hugo-Brewm](https://themes.gohugo.io/themes/hugo-brewm) caught my eye. It looked sleek, stylish, modern and minimalist without trying too hard. So I decided to use that as a base. And as it turned out, this theme also had built-in support for Search Indexing via as [Pagefind](https://pagefind.app/) well as Comments via [Giscus](https://giscus.app), so I was pretty damn happy.
+[Hugo-Brewm](https://themes.gohugo.io/themes/hugo-brewm) caught my eye. It looked sleek, stylish, modern and minimalist without trying too hard. So I decided to use that as a base. And as it turned out, this theme also had built-in support for Search Indexing via [Pagefind](https://pagefind.app/) as well as Comments via [Giscus](https://giscus.app), so I was pretty damn happy.
 
 ### The Workflow
 I had a project, a theme and related technicalities served on a plate. I just needed to do some plumbing and finish the job. Buuuuttt, I did NOT want to spend my time editing CSS and having to look at hugo-brewm's codebase to make any substantial edits.
