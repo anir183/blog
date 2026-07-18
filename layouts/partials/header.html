@@ -19,7 +19,7 @@
         </a>
         <div class="navbar-links">
             {{- range site.Menus.main }}
-                <a href="{{ .URL }}" class="navbar-link{{ if $.IsMenuCurrent "main" . }} active{{ end }}">{{ .Name }}{{ if strings.HasPrefix .URL "http" }}<span class="external-arrow" aria-hidden="true"></span>{{ end }}</a>
+                <a href="{{ .URL }}" class="navbar-link{{ if $.IsMenuCurrent "main" . }} active{{ end }}"{{ with .Params.target }} target="{{ . }}" rel="noopener"{{ end }}>{{ .Name }}{{ if strings.HasPrefix .URL "http" }}<span class="external-arrow" aria-hidden="true"></span>{{ end }}</a>
             {{- end }}
         </div>
         <div class="navbar-actions">
@@ -41,7 +41,7 @@
             <button class="mobile-close" aria-label="{{ i18n "close" }}">✕</button>
             <div class="mobile-links">
                 {{- range site.Menus.main }}
-                    <a href="{{ .URL }}" class="mobile-link{{ if $.IsMenuCurrent "main" . }} active{{ end }}">{{ .Name }}{{ if strings.HasPrefix .URL "http" }}<span class="external-arrow" aria-hidden="true"></span>{{ end }}</a>
+                    <a href="{{ .URL }}" class="mobile-link{{ if $.IsMenuCurrent "main" . }} active{{ end }}"{{ with .Params.target }} target="{{ . }}" rel="noopener"{{ end }}>{{ .Name }}{{ if strings.HasPrefix .URL "http" }}<span class="external-arrow" aria-hidden="true"></span>{{ end }}</a>
                 {{- end }}
             </div>
         </div>
